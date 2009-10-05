@@ -23,3 +23,7 @@
     HADOOP-5739. After JobTracker restart Capacity Schduler does not schedules 
     pending tasks from already running tasks. 
     http://issues.apache.org/jira/secure/attachment/12410166/hadoop-5739-20-alt.patch
+
+    HADOOP-4842. Streaming now allows specifiying a command for the combiner.
+    (Amareshwari Sriramadasu via ddas)
+    http://issues.apache.org/jira/secure/attachment/12402355/patch-4842-3.txt
