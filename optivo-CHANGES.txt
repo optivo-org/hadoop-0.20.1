@@ -54,3 +54,7 @@
     HADOOP-5818. Revert the renaming from FSNamesystem.checkSuperuserPrivilege
     to checkAccess by HADOOP-5643.  (Amar Kamat via szetszwo)
     http://issues.apache.org/jira/secure/attachment/12409835/5818for0.20.patch
+
+    HADOOP-5476. Calling new SequenceFile.Reader(...) no longer leaves an InputStream
+    open, if the given sequence file is broken (Michael Tamm)
+    http://issues.apache.org/jira/secure/attachment/12407538/updated_test_and_fix_for_HADOOP-5476_which_uses_IOUtils_cleanup.patch
