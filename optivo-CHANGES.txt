@@ -35,3 +35,7 @@
     HADOOP-5733. Add map/reduce slot capacity and blacklisted capacity to
     JobTracker metrics. (Sreekanth Ramakrishnan via cdouglas)
     http://issues.apache.org/jira/secure/attachment/12409322/hadoop-5733-v20.patch
+
+    HADOOP-5419. Provide a facility to query the Queue ACLs for the
+    current user.  (Rahul Kumar Singh via yhemanth)
+    http://issues.apache.org/jira/secure/attachment/12409323/hadoop-5419-v20.patch
