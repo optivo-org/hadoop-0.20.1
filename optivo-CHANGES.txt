@@ -1,0 +1,4 @@
+  IMPROVEMENTS
+
+    HADOOP-4930. Implement a Linux native executable that can be used to 
+    launch tasks as users. (Sreekanth Ramakrishnan via yhemanth)
