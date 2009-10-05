@@ -14,3 +14,8 @@
     HADOOP-4490. Provide ability to run tasks as job owners.
     (Sreekanth Ramakrishnan via yhemanth)
     http://issues.apache.org/jira/secure/attachment/12416877/4490-ydist.patch
+
+    HADOOP-5396. Provide ability to refresh queue ACLs in the JobTracker
+    without having to restart the daemon.
+    (Sreekanth Ramakrishnan and Vinod Kumar Vavilapalli via yhemanth)
+    http://issues.apache.org/jira/secure/attachment/12409319/5396-20.patch
