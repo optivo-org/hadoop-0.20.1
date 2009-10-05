@@ -19,3 +19,7 @@
     without having to restart the daemon.
     (Sreekanth Ramakrishnan and Vinod Kumar Vavilapalli via yhemanth)
     http://issues.apache.org/jira/secure/attachment/12409319/5396-20.patch
+
+    HADOOP-5739. After JobTracker restart Capacity Schduler does not schedules 
+    pending tasks from already running tasks. 
+    http://issues.apache.org/jira/secure/attachment/12410166/hadoop-5739-20-alt.patch
