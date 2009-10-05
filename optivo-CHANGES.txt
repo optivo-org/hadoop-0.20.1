@@ -10,3 +10,7 @@
 
     HADOOP-5442. Paginate jobhistory display and added some search
     capabilities. (Amar Kamat via acmurthy) 
+
+    HADOOP-4490. Provide ability to run tasks as job owners.
+    (Sreekanth Ramakrishnan via yhemanth)
+    http://issues.apache.org/jira/secure/attachment/12416877/4490-ydist.patch
