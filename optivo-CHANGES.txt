@@ -58,3 +58,7 @@
     HADOOP-5476. Calling new SequenceFile.Reader(...) no longer leaves an InputStream
     open, if the given sequence file is broken (Michael Tamm)
     http://issues.apache.org/jira/secure/attachment/12407538/updated_test_and_fix_for_HADOOP-5476_which_uses_IOUtils_cleanup.patch
+    
+    HADOOP-5423. It is now possible to specify metadata for the output file produced
+    by SequenceFile.Sorter.sort (Michael Tamm)
+    http://issues.apache.org/jira/secure/attachment/12402134/fix_and_test_for_HADOOP-5423.patch
