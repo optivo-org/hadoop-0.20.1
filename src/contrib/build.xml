@@ -39,6 +39,9 @@
     <subant target="package">
       <fileset dir="." includes="*/build.xml"/>
     </subant>
+    <!-- Copy jar files of fairscheduler and collectd into lib directory ... -->
+    <copy file="${dist.dir}/contrib/fairscheduler/hadoop-${version}-fairscheduler.jar" todir="${dist.dir}/lib" />
+    <copy file="${dist.dir}/contrib/collectd/hadoop-${version}-collectd.jar" todir="${dist.dir}/lib" />
   </target>
   
   <!-- ====================================================== -->
