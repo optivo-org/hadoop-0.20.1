@@ -3,6 +3,8 @@
     HADOOP-3327. Improves handling of READ_TIMEOUT during map output copying.
     (Amareshwari Sriramadasu via ddas)
 
+    Added integration for collectd
+    
   IMPROVEMENTS
 
     HADOOP-4930. Implement a Linux native executable that can be used to 
