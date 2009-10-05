@@ -45,4 +45,8 @@
     HADOOP-5643. Adds a way to decommission TaskTrackers 
     while the JobTracker is running. (Amar Kamat via ddas)
     http://issues.apache.org/jira/secure/attachment/12410619/Fixed+5643-0.20-final
-    
+
+    HADOOP-5801. Fixes the problem: If the hosts file is changed across restart
+    then it should be refreshed upon recovery so that the excluded hosts are
+    lost and the maps are re-executed. (Amar Kamat via ddas)
+    http://issues.apache.org/jira/secure/attachment/12409834/5801-0.20.patch
