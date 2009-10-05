@@ -41,3 +41,8 @@
     HADOOP-5419. Provide a facility to query the Queue ACLs for the
     current user.  (Rahul Kumar Singh via yhemanth)
     http://issues.apache.org/jira/secure/attachment/12409323/hadoop-5419-v20.patch
+
+    HADOOP-5643. Adds a way to decommission TaskTrackers 
+    while the JobTracker is running. (Amar Kamat via ddas)
+    http://issues.apache.org/jira/secure/attachment/12410619/Fixed+5643-0.20-final
+    
