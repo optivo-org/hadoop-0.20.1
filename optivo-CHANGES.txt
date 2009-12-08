@@ -7,6 +7,9 @@
     
   IMPROVEMENTS
 
+    Lowered HEARTBEAT_INTERVAL_MIN to 500ms and CLUSTER_INCREMENT to 10ms 
+    which boosts performance dramatically on smaller clusters.
+
     HADOOP-4930. Implement a Linux native executable that can be used to 
     launch tasks as users. (Sreekanth Ramakrishnan via yhemanth)
 
