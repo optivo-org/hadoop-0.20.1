@@ -7,6 +7,9 @@
     
   IMPROVEMENTS
 
+    HADOOP-5759. IllegalArgumentException when CombineFileInputFormat is used as job InputFormat
+    (Amareshwari Sriramadasu)
+
     Lowered HEARTBEAT_INTERVAL_MIN to 500ms and CLUSTER_INCREMENT to 10ms 
     which boosts performance dramatically on smaller clusters.
 
