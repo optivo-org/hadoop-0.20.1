@@ -7,6 +7,8 @@
     
   IMPROVEMENTS
 
+    Backport of DistCp from trunk revision 889496. (Peter Romianowski)
+
     MAPREDUCE-1285. DistCp cannot handle -delete if destination is local
     filesystem. (Peter Romianowski)
 
