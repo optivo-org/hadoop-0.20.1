@@ -46,11 +46,7 @@ import org.apache.hadoop.fs.FsShell;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.hadoop.hdfs.protocol.QuotaExceededException;
-import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.SequenceFile;
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.io.Writable;
-import org.apache.hadoop.io.WritableComparable;
+import org.apache.hadoop.io.*;
 import org.apache.hadoop.ipc.RemoteException;
 import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.security.AccessControlException;
@@ -1525,7 +1521,7 @@ public class DistCp implements Tool {
     //write dst lsr results
     final Path dstlsr = new Path(jobdir, "_distcp_dst_lsr");
     final SequenceFile.Writer writer = SequenceFile.createWriter(jobfs, jobconf,
-        dstlsr, Text.class, dstroot.getClass(),
+        dstlsr, Text.class, Text.class,
         SequenceFile.CompressionType.NONE);
     try {
       //do lsr to get all file statuses in dstroot
@@ -1535,7 +1531,7 @@ public class DistCp implements Tool {
         if (status.isDir()) {
           for(FileStatus child : dstfs.listStatus(status.getPath())) {
             String relative = makeRelative(dstroot.getPath(), child.getPath());
-            writer.append(new Text(relative), child);
+            writer.append(new Text(relative), new Text(child.getPath().toString()));
             lsrstack.push(child);
           }
         }
@@ -1547,7 +1543,7 @@ public class DistCp implements Tool {
     //sort lsr results
     final Path sortedlsr = new Path(jobdir, "_distcp_dst_lsr_sorted");
     SequenceFile.Sorter sorter = new SequenceFile.Sorter(jobfs,
-        new Text.Comparator(), Text.class, FileStatus.class, jobconf);
+        new Text.Comparator(), Text.class, Text.class, jobconf);
     sorter.sort(dstlsr, sortedlsr);
 
     //compare lsr list and dst list
@@ -1560,14 +1556,13 @@ public class DistCp implements Tool {
 
       //compare sorted lsr list and sorted dst list
       final Text lsrpath = new Text();
-      final FileStatus lsrstatus = new FileStatus();
+      final Text lsrfullpath = new Text();
       final Text dstpath = new Text();
       final Text dstfrom = new Text();
-      final FsShell shell = new FsShell(conf);
-      final String[] shellargs = {"-rmr", null};
 
       boolean hasnext = dstin.next(dstpath, dstfrom);
-      for(; lsrin.next(lsrpath, lsrstatus); ) {
+      String lastpath = null;
+      for(; lsrin.next(lsrpath, lsrfullpath); ) {
         int dst_cmp_lsr = dstpath.compareTo(lsrpath);
         for(; hasnext && dst_cmp_lsr < 0; ) {
           hasnext = dstin.next(dstpath, dstfrom);
@@ -1580,19 +1575,15 @@ public class DistCp implements Tool {
         }
         else {
           //lsrpath does not exist, delete it
-          String s = new Path(dstroot.getPath(), lsrpath.toString()).toString();
+          final Path path = new Path(dstroot.getPath(), lsrpath.toString());
+          final String s = path.toString();
           ++deletedPathsCount;
-          if (shellargs[1] == null || !isAncestorPath(shellargs[1], s)) {
-            shellargs[1] = s;
-            int r = 0;
+          if (lastpath == null || !isAncestorPath(lastpath, s)) {
+            lastpath = s;
             try {
-               r = shell.run(shellargs);
+              dstfs.delete(path, true);
             } catch(Exception e) {
-              throw new IOException("Exception from shell.", e);
-            }
-            if (r != 0) {
-              throw new IOException("\"" + shellargs[0] + " " + shellargs[1]
-                  + "\" returns non-zero value " + r);
+              throw new IOException("Unable to delete path '" + path + "'.", e);
             }
           }
         }
