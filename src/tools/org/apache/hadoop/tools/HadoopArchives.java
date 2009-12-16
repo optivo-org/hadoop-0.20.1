@@ -676,7 +676,7 @@ public class HadoopArchives implements Tool {
     JobConf job = new JobConf(HadoopArchives.class);
     HadoopArchives harchives = new HadoopArchives(job);
     try {
-      int res = harchives.run(args);
+      int res = ToolRunner.run(harchives, args);
       System.exit(res);
     } catch(Exception e) {
       System.err.println(e.getLocalizedMessage());
