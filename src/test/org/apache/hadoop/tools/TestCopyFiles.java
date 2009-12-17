@@ -733,7 +733,7 @@ public class TestCopyFiles extends TestCase {
     }
   }
 
-  public void teestMapCount() throws Exception {
+  public void testMapCount() throws Exception {
     String namenode = null;
     MiniDFSCluster dfs = null;
     MiniMRCluster mr = null;
