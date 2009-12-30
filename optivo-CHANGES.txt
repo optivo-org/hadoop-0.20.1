@@ -7,6 +7,9 @@
     
   IMPROVEMENTS
 
+    MAPREDUCE-1182. Reducers fail with OutOfMemoryError while copying Map outputs
+    (Chandra Prakash Bhagtani)
+
     MAPREDUCE-1305. DistCp -delete option is painfully slow. (Peter Romianowski)
 
     HadoopArchives did not use ToolRunner (Peter Romianowski)

@@ -984,10 +984,10 @@ class ReduceTask extends Task {
        * simultaneously after which a merge is triggered. */ 
       private static final float MAX_STALLED_SHUFFLE_THREADS_FRACTION = 0.75f;
       
-      private final int maxSize;
-      private final int maxSingleShuffleLimit;
+      private final long maxSize;
+      private final long maxSingleShuffleLimit;
       
-      private int size = 0;
+      private long size = 0;
       
       private Object dataAvailable = new Object();
       private int fullSize = 0;
@@ -1003,10 +1003,10 @@ class ReduceTask extends Task {
           throw new IOException("mapred.job.shuffle.input.buffer.percent" +
                                 maxInMemCopyUse);
         }
-        maxSize = (int)Math.min(
+        maxSize = (long)Math.min(
             Runtime.getRuntime().maxMemory() * maxInMemCopyUse,
             Integer.MAX_VALUE);
-        maxSingleShuffleLimit = (int)(maxSize * MAX_SINGLE_SHUFFLE_SEGMENT_FRACTION);
+        maxSingleShuffleLimit = (long)(maxSize * MAX_SINGLE_SHUFFLE_SEGMENT_FRACTION);
         LOG.info("ShuffleRamManager: MemoryLimit=" + maxSize + 
                  ", MaxSingleShuffleLimit=" + maxSingleShuffleLimit);
       }
@@ -1118,7 +1118,7 @@ class ReduceTask extends Task {
         return (float)fullSize/maxSize;
       }
 
-      int getMemoryLimit() {
+      long getMemoryLimit() {
         return maxSize;
       }
       
