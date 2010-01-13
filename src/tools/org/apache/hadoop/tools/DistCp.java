@@ -1521,7 +1521,7 @@ public class DistCp implements Tool {
     //write dst lsr results
     final Path dstlsr = new Path(jobdir, "_distcp_dst_lsr");
     final SequenceFile.Writer writer = SequenceFile.createWriter(jobfs, jobconf,
-        dstlsr, Text.class, Text.class,
+        dstlsr, Text.class, NullWritable.class,
         SequenceFile.CompressionType.NONE);
     try {
       //do lsr to get all file statuses in dstroot
@@ -1531,7 +1531,7 @@ public class DistCp implements Tool {
         if (status.isDir()) {
           for(FileStatus child : dstfs.listStatus(status.getPath())) {
             String relative = makeRelative(dstroot.getPath(), child.getPath());
-            writer.append(new Text(relative), new Text(child.getPath().toString()));
+            writer.append(new Text(relative), NullWritable.get());
             lsrstack.push(child);
           }
         }
@@ -1543,7 +1543,7 @@ public class DistCp implements Tool {
     //sort lsr results
     final Path sortedlsr = new Path(jobdir, "_distcp_dst_lsr_sorted");
     SequenceFile.Sorter sorter = new SequenceFile.Sorter(jobfs,
-        new Text.Comparator(), Text.class, Text.class, jobconf);
+        new Text.Comparator(), Text.class, NullWritable.class, jobconf);
     sorter.sort(dstlsr, sortedlsr);
 
     //compare lsr list and dst list
@@ -1556,13 +1556,12 @@ public class DistCp implements Tool {
 
       //compare sorted lsr list and sorted dst list
       final Text lsrpath = new Text();
-      final Text lsrfullpath = new Text();
       final Text dstpath = new Text();
       final Text dstfrom = new Text();
 
       boolean hasnext = dstin.next(dstpath, dstfrom);
       String lastpath = null;
-      for(; lsrin.next(lsrpath, lsrfullpath); ) {
+      for(; lsrin.next(lsrpath, NullWritable.get()); ) {
         int dst_cmp_lsr = dstpath.compareTo(lsrpath);
         for(; hasnext && dst_cmp_lsr < 0; ) {
           hasnext = dstin.next(dstpath, dstfrom);
