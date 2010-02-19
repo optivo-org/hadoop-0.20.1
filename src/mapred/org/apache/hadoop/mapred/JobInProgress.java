@@ -76,29 +76,29 @@ class JobInProgress {
   TaskInProgress reduces[] = new TaskInProgress[0];
   TaskInProgress cleanup[] = new TaskInProgress[0];
   TaskInProgress setup[] = new TaskInProgress[0];
-  int numMapTasks = 0;
-  int numReduceTasks = 0;
+  volatile int numMapTasks = 0;
+  volatile int numReduceTasks = 0;
   
   // Counters to track currently running/finished/failed Map/Reduce task-attempts
-  int runningMapTasks = 0;
-  int runningReduceTasks = 0;
-  int finishedMapTasks = 0;
-  int finishedReduceTasks = 0;
-  int failedMapTasks = 0; 
-  int failedReduceTasks = 0;
+  volatile int runningMapTasks = 0;
+  volatile int runningReduceTasks = 0;
+  volatile int finishedMapTasks = 0;
+  volatile int finishedReduceTasks = 0;
+  volatile int failedMapTasks = 0;
+  volatile int failedReduceTasks = 0;
   
   private static float DEFAULT_COMPLETED_MAPS_PERCENT_FOR_REDUCE_SLOWSTART = 0.05f;
   int completedMapsForReduceSlowstart = 0;
   
   // runningMapTasks include speculative tasks, so we need to capture 
   // speculative tasks separately 
-  int speculativeMapTasks = 0;
-  int speculativeReduceTasks = 0;
+  volatile int speculativeMapTasks = 0;
+  volatile int speculativeReduceTasks = 0;
   
   int mapFailuresPercent = 0;
   int reduceFailuresPercent = 0;
-  int failedMapTIPs = 0;
-  int failedReduceTIPs = 0;
+  volatile int failedMapTIPs = 0;
+  volatile int failedReduceTIPs = 0;
   private volatile boolean launchedCleanup = false;
   private volatile boolean launchedSetup = false;
   private volatile boolean jobKilled = false;
@@ -170,7 +170,7 @@ class JobInProgress {
   private ResourceEstimator resourceEstimator; 
   
   long startTime;
-  long launchTime;
+  volatile long launchTime;
   long finishTime;
   
   // Indicates how many times the job got restarted
@@ -522,7 +522,7 @@ class JobInProgress {
   public JobStatus getStatus() {
     return status;
   }
-  public synchronized long getLaunchTime() {
+  public long getLaunchTime() {
     return launchTime;
   }
   public long getStartTime() {
@@ -534,19 +534,19 @@ class JobInProgress {
   public int desiredMaps() {
     return numMapTasks;
   }
-  public synchronized int finishedMaps() {
+  public int finishedMaps() {
     return finishedMapTasks;
   }
   public int desiredReduces() {
     return numReduceTasks;
   }
-  public synchronized int runningMaps() {
+  public int runningMaps() {
     return runningMapTasks;
   }
-  public synchronized int runningReduces() {
+  public int runningReduces() {
     return runningReduceTasks;
   }
-  public synchronized int finishedReduces() {
+  public int finishedReduces() {
     return finishedReduceTasks;
   }
   public synchronized int pendingMaps() {
