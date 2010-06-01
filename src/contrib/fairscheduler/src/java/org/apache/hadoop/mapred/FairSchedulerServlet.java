@@ -157,7 +157,14 @@ public class FairSchedulerServlet extends HttpServlet {
             return 1;
           else if (p2.isDefaultPool())
             return -1;
-          else return p1.getName().compareTo(p2.getName());
+          else {
+            String n1 = p1.getName();
+            String n2 = p2.getName();
+            if (n1 == null)
+              return (n2 == null ? 0 : -1);
+            else
+              return (n2 == null ? 1 : n1.compareTo(n2));
+          }
         }});
       for (Pool pool: pools) {
         int runningMaps = 0;
