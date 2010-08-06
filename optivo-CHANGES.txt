@@ -7,6 +7,9 @@
     
   IMPROVEMENTS
 
+    HDFS-1024. SecondaryNamenode fails to checkpoint because namenode fails
+    with CancelledKeyException (Dmytro Molkov via Stack)
+
     MAPREDUCE-1182. Reducers fail with OutOfMemoryError while copying Map outputs
     (Chandra Prakash Bhagtani)
 

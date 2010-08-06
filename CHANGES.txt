@@ -17,6 +17,9 @@ Release 0.20.1 - 2009-09-01
 
     HADOOP-3315. Add a new, binary file foramt, TFile. (Hong Tang via cdouglas)
 
+    HDFS-1024 SecondaryNamenode fails to checkpoint because namenode fails
+    with CancelledKeyException (Dmytro Molkov via Stack)
+
   IMPROVEMENTS
 
     HADOOP-5711. Change Namenode file close log to info. (szetszwo)
