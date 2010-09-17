@@ -57,7 +57,14 @@ public class GetImageServlet extends HttpServlet {
         TransferFsImage.getFileServer(response.getOutputStream(),
                                       nnImage.getFsEditName());
       } else if (ff.putImage()) {
-        // issue a HTTP get request to download the new fsimage 
+        // issue a HTTP get request to download the new fsimage
+        long filesize = 0;
+        for (int a = 0; a < nnImage.getFsImageNameCheckpoint().length; a++) {
+          File file = nnImage.getFsImageNameCheckpoint()[a];
+          filesize += file.length();
+        }
+        response.setHeader(TransferFsImage.CONTENT_LENGTH,
+          String.valueOf(filesize));
         nnImage.validateCheckpointUpload(ff.getToken());
         TransferFsImage.getFileClient(ff.getInfoServer(), "getimage=1", 
                                       nnImage.getFsImageNameCheckpoint());
