@@ -7,6 +7,10 @@
     
   IMPROVEMENTS
 
+    Made some member variables of JobInProgress volatile and removed
+    synchronized keyword from some method in JobInProgress - this prevents a
+    deadlock in FairSchedulerServlet.showJobs(...)
+
     HDFS-1024. SecondaryNamenode fails to checkpoint because namenode fails
     with CancelledKeyException (Dmytro Molkov via Stack)
 
