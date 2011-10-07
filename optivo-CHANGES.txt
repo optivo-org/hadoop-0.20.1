@@ -5,6 +5,9 @@
 
     Added integration for collectd
     
+    HDFS-1041. DFSClient.getFileChecksum(..) should retry if connection to
+    the first datanode fails.  (szetszwo)
+
   IMPROVEMENTS
 
     Made some member variables of JobInProgress volatile and removed
