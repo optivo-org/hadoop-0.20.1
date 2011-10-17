@@ -659,7 +659,7 @@ public class DFSClient implements FSConstants, java.io.Closeable {
         DataInputStream in = null;
         try {
           //connect to a datanode
-          final Socket sock = socketFactory.createSocket();
+          sock = socketFactory.createSocket();
           NetUtils.connect(sock, NetUtils.createSocketAddr(datanodes[j].getName()), timeout);
           sock.setSoTimeout(timeout);
 
